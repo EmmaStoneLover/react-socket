@@ -21,8 +21,10 @@ export default function UserBox({ AUTH, logged, setLogged }) {
     ).json()
     console.log('Пришло:', res)
     if (!res.userError && !res.passwordError && res.username) {
-      localStorage.user = res.username
+      localStorage.username = res.username
+      localStorage.token = res.token
       setLogged(true)
+      console.log(localStorage)
     } else {
       setUserInput('Ты чета попутал')
       setPasswordInput('')
@@ -34,7 +36,9 @@ export default function UserBox({ AUTH, logged, setLogged }) {
     fetchData()
   }
   function handleLogOut() {
-    localStorage.user = null
+    delete localStorage.username
+    delete localStorage.token
+    console.log(localStorage)
     setLogged(false)
     setUserInput('')
     setPasswordInput('')
@@ -66,8 +70,8 @@ export default function UserBox({ AUTH, logged, setLogged }) {
         </>
       ) : (
         <>
-          <p>Попа</p>
-          <button onClick={handleLogOut}>Пошел в попу</button>
+          <p>Привет, {localStorage.username}</p>
+          <button onClick={handleLogOut}>Выйти</button>
         </>
       )}
     </div>

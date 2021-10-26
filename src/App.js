@@ -13,16 +13,16 @@ function App() {
   const [message, setMessage] = useState('')
   const [text, setText] = useState([])
   const [logged, setLogged] = useState(() => {
-    return localStorage.user &&
-      localStorage.user !== null &&
-      localStorage.user !== 'null'
+    return localStorage.username &&
+      localStorage.username !== null &&
+      localStorage.username !== 'null'
       ? true
       : false
   })
 
   function handleSubmit(e) {
     e.preventDefault()
-    socket.emit('message', { message: message, user: localStorage.user })
+    socket.emit('message', { message: message, user: localStorage.username })
     setMessage('')
   }
   useEffect(() => {

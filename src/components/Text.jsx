@@ -16,7 +16,11 @@ export default function Text({ text }) {
         return (
           <p
             style={styles.p}
-            className={payload.user === 'Миша' ? 'textRight' : 'textLeft'}
+            className={`
+              textLeft
+              ${payload.user === 'Миша' ? 'textRight' : ''} 
+              ${payload.user === 'Emma Stone' ? 'textCenter' : ''}
+              `}
             key={index}
           >
             {payload.user !== null && payload.user !== 'null' ? (
