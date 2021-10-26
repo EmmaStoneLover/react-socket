@@ -7,21 +7,18 @@ import MyBox from './components/MyBox'
 import UserBox from './components/UserBox'
 
 const socket = io('https://node7socket.herokuapp.com')
+const AUTH = 'https://emmastonenodejs.herokuapp.com'
 
 function App() {
   const [message, setMessage] = useState('')
   const [text, setText] = useState([])
-  const [logged, setLogged] = useState(localStorage.user)
-
-  function changeUser(user) {
-    if (user) {
-      setLogged(true)
-      localStorage.user = user
-    } else {
-      setLogged(false)
-      localStorage.user = null
-    }
-  }
+  const [logged, setLogged] = useState(() => {
+    return localStorage.user &&
+      localStorage.user !== null &&
+      localStorage.user !== 'null'
+      ? true
+      : false
+  })
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -37,11 +34,7 @@ function App() {
   return (
     <div className="App">
       <MyBox>
-        <UserBox
-          changeUser={changeUser}
-          logged={logged}
-          setLogged={setLogged}
-        />
+        <UserBox AUTH={AUTH} logged={logged} setLogged={setLogged} />
       </MyBox>
       <Input
         handleSubmit={handleSubmit}
