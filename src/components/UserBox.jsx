@@ -67,7 +67,7 @@ export default function UserBox({ AUTH, logged, setLogged }) {
       ) : (
         <>
           <p>Попа</p>
-          <button onClick={handleLogOut}>Выйти</button>
+          <button onClick={handleLogOut}>Пошел в попу</button>
         </>
       )}
     </div>
