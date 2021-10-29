@@ -5,8 +5,8 @@ import Input from './components/Input'
 import MyBox from './settings/MyBox'
 import UserBox from './components/UserBox'
 import { Container, Typography } from '@mui/material'
-import Theme, { ColorModeContext } from './settings/Theme'
-import { useTheme } from '@mui/material/styles'
+// import Theme, { ColorModeContext } from './settings/Theme'
+// import { useTheme } from '@mui/material/styles'
 
 const AUTH = 'https://emmastonenodejs.herokuapp.com'
 
@@ -21,41 +21,41 @@ export default function App() {
       : false
   })
 
-  const theme = useTheme()
-  const colorMode = useContext(ColorModeContext)
+  // const theme = useTheme()
+  // const colorMode = useContext(ColorModeContext)
 
   return (
-    <Theme>
-    <Container className="App" maxWidth="sm">
-      <br />
-      <Typography variant="h4">EmmaStone</Typography>
-      <br />
-      <button onClick={colorMode.toggleColorMode}>
+    <>
+      <Container className="App" maxWidth="sm">
+        <br />
+        <Typography variant="h4">EmmaStone</Typography>
+        <br />
+        {/* <button onClick={colorMode.toggleColorMode}>
         { theme.palette.mode === 'light' ? 'Темный' : 'Светлый' }
-      </button>
-      <MyBox>
-        <UserBox
-          AUTH={AUTH}
-          logged={logged}
-          setLogged={setLogged}
-          text={text}
-          setText={setText}
-        />
-      </MyBox>
-      <MyBox>
-        <Input
-          message={message}
-          setMessage={setMessage}
-          text={text}
-          setText={setText}
-        />
-      </MyBox>
-      {text.length ? (
-        <Text text={text} />
-      ) : (
-        <Typography variant="p">Ничего тут нету</Typography>
-      )}
-    </Container>
-    </Theme>
+      </button> */}
+        <MyBox>
+          <UserBox
+            AUTH={AUTH}
+            logged={logged}
+            setLogged={setLogged}
+            text={text}
+            setText={setText}
+          />
+        </MyBox>
+        <MyBox>
+          <Input
+            message={message}
+            setMessage={setMessage}
+            text={text}
+            setText={setText}
+          />
+        </MyBox>
+        {text.length ? (
+          <Text text={text} />
+        ) : (
+          <Typography variant="p">Ничего тут нету</Typography>
+        )}
+      </Container>
+    </>
   )
 }
