@@ -20,7 +20,8 @@ function App() {
   })
 
   return (
-    <Container className="App">
+    <Container className="App" maxWidth="sm">
+      <Typography variant="h4">EmmaStone</Typography>
       <MyBox>
         <UserBox
           AUTH={AUTH}
