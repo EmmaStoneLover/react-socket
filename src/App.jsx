@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import './css/App.css'
 import Text from './components/Text'
 import Input from './components/Input'
