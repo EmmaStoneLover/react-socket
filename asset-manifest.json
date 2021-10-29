@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/react-socket/static/css/main.606656c0.chunk.css",
-    "main.js": "/react-socket/static/js/main.564b8532.chunk.js",
-    "main.js.map": "/react-socket/static/js/main.564b8532.chunk.js.map",
+    "main.css": "/react-socket/static/css/main.1a0131c5.chunk.css",
+    "main.js": "/react-socket/static/js/main.0a3a62af.chunk.js",
+    "main.js.map": "/react-socket/static/js/main.0a3a62af.chunk.js.map",
     "runtime-main.js": "/react-socket/static/js/runtime-main.f95db973.js",
     "runtime-main.js.map": "/react-socket/static/js/runtime-main.f95db973.js.map",
-    "static/js/2.9cfc71ed.chunk.js": "/react-socket/static/js/2.9cfc71ed.chunk.js",
-    "static/js/2.9cfc71ed.chunk.js.map": "/react-socket/static/js/2.9cfc71ed.chunk.js.map",
+    "static/js/2.0bcb0a76.chunk.js": "/react-socket/static/js/2.0bcb0a76.chunk.js",
+    "static/js/2.0bcb0a76.chunk.js.map": "/react-socket/static/js/2.0bcb0a76.chunk.js.map",
     "index.html": "/react-socket/index.html",
-    "static/css/main.606656c0.chunk.css.map": "/react-socket/static/css/main.606656c0.chunk.css.map",
-    "static/js/2.9cfc71ed.chunk.js.LICENSE.txt": "/react-socket/static/js/2.9cfc71ed.chunk.js.LICENSE.txt"
+    "static/css/main.1a0131c5.chunk.css.map": "/react-socket/static/css/main.1a0131c5.chunk.css.map",
+    "static/js/2.0bcb0a76.chunk.js.LICENSE.txt": "/react-socket/static/js/2.0bcb0a76.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f95db973.js",
-    "static/js/2.9cfc71ed.chunk.js",
-    "static/css/main.606656c0.chunk.css",
-    "static/js/main.564b8532.chunk.js"
+    "static/js/2.0bcb0a76.chunk.js",
+    "static/css/main.1a0131c5.chunk.css",
+    "static/js/main.0a3a62af.chunk.js"
   ]
 }
