@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import './css/App.css'
 import Text from './components/Text'
 import Input from './components/Input'
 import MyBox from './settings/MyBox'
 import UserBox from './components/UserBox'
 import { Container, Typography } from '@mui/material'
+import Theme, { ColorModeContext } from './settings/Theme'
+import { useTheme } from '@mui/material/styles'
 
 const AUTH = 'https://emmastonenodejs.herokuapp.com'
 
-function App() {
+export default function App() {
   const [message, setMessage] = useState('')
   const [text, setText] = useState([])
   const [logged, setLogged] = useState(() => {
@@ -19,9 +21,18 @@ function App() {
       : false
   })
 
+  const theme = useTheme()
+  const colorMode = useContext(ColorModeContext)
+
   return (
+    <Theme>
     <Container className="App" maxWidth="sm">
+      <br />
       <Typography variant="h4">EmmaStone</Typography>
+      <br />
+      <button onClick={colorMode.toggleColorMode}>
+        { theme.palette.mode === 'light' ? 'Темный' : 'Светлый' }
+      </button>
       <MyBox>
         <UserBox
           AUTH={AUTH}
@@ -45,7 +56,6 @@ function App() {
         <Typography variant="p">Ничего тут нету</Typography>
       )}
     </Container>
+    </Theme>
   )
 }
-
-export default App
