@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import { Button, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 export default function UserBox({ AUTH, logged, setLogged }) {
   const [userInput, setUserInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
+  const [loading, setLoading] = useState(false)
 
   async function fetchData() {
     const data = {
@@ -24,20 +27,25 @@ export default function UserBox({ AUTH, logged, setLogged }) {
       localStorage.username = res.username
       localStorage.token = res.token
       setLogged(true)
-      console.log(localStorage)
+      console.log('Все збс', localStorage)
     } else {
-      setUserInput('Ты чета попутал')
+      setUserInput('')
       setPasswordInput('')
+      setLogged(false)
+      setLoading(false)
+      console.log('Errreeeeeeeeooeoeoeoeooeoeoeor')
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault()
+    setLoading(true)
     fetchData()
   }
   function handleLogOut() {
     delete localStorage.username
     delete localStorage.token
+    setLoading(false)
     console.log(localStorage)
     setLogged(false)
     setUserInput('')
@@ -48,30 +56,55 @@ export default function UserBox({ AUTH, logged, setLogged }) {
     <div>
       {!logged ? (
         <>
-          <p>Эй бля, ты кто?</p>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <input
+            <Typography variant="label" style={{ marginRight: 25 }}>
+              Эй ю ты кто? а
+            </Typography>
+            <LoadingButton
+              loading={loading}
+              type="submit"
+              color="secondary"
+              variant="outlined"
+            >
+              Вoйти
+            </LoadingButton>
+            <br />
+            <br />
+            <TextField
               required
-              placeholder="логин Ноунейм"
+              fullWidth
+              style={{ maxWidth: 500 }}
+              type="username"
+              label="логин Ноунейм"
               vlaue={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-            />{' '}
+            />
             <br />
-            <input
+            <br />
+            <TextField
               required
+              fullWidth
+              style={{ maxWidth: 500 }}
               type="password"
-              placeholder="пароль 1234"
+              label="пароль 1234"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
             />
-            <br />
-            <button type="submit">Войти</button>
           </form>
         </>
       ) : (
         <>
-          <p>Привет, {localStorage.username}</p>
-          <button onClick={handleLogOut}>Выйти</button>
+          <Typography variant="label">
+            Привет, {localStorage.username}
+          </Typography>
+          <Button
+            style={{ marginLeft: 30 }}
+            color="secondary"
+            variant="outlined"
+            onClick={handleLogOut}
+          >
+            Выйти
+          </Button>
         </>
       )}
     </div>

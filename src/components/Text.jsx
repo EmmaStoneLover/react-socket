@@ -1,5 +1,5 @@
 import React from 'react'
-import MyBox from './MyBox'
+import MyBox from '../settings/MyBox'
 import '../css/App.css'
 
 const styles = {
