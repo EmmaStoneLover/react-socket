@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import './css/App.css'
 import Text from './components/Text'
 import Input from './components/Input'
 import MyBox from './settings/MyBox'
 import UserBox from './components/UserBox'
-import { Container, Typography } from '@mui/material'
-// import Theme, { ColorModeContext } from './settings/Theme'
-// import { useTheme } from '@mui/material/styles'
+import Settings from './settings/Settings'
+import { Container, Typography, Box, Button } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { ColorModeContext } from './settings/Theme'
 
 const AUTH = 'https://emmastonenodejs.herokuapp.com'
 
@@ -21,18 +22,24 @@ export default function App() {
       : false
   })
 
-  // const theme = useTheme()
-  // const colorMode = useContext(ColorModeContext)
+  const theme = useTheme()
+  const colorMode = useContext(ColorModeContext)
+  const [settings, setSettings] = useState(false)
 
   return (
-    <>
+    <Box
+      sx={{
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        height: '100vh',
+      }}
+    >
       <Container className="App" maxWidth="sm">
         <br />
         <Typography variant="h4">EmmaStone</Typography>
         <br />
-        {/* <button onClick={colorMode.toggleColorMode}>
-        { theme.palette.mode === 'light' ? 'Темный' : 'Светлый' }
-      </button> */}
+        <Button onClick={() => setSettings((prev) => !prev)}>Settings</Button>
+        {settings ? <Settings theme={theme} colorMode={colorMode} /> : ''}
         <MyBox>
           <UserBox
             AUTH={AUTH}
@@ -56,6 +63,6 @@ export default function App() {
           <Typography variant="p">Ничего тут нету</Typography>
         )}
       </Container>
-    </>
+    </Box>
   )
 }
