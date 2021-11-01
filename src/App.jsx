@@ -31,7 +31,7 @@ export default function App() {
       sx={{
         bgcolor: 'background.default',
         color: 'text.primary',
-        height: '100vh',
+        minHeight: '100vh',
       }}
     >
       <Container className="App" maxWidth="sm">
