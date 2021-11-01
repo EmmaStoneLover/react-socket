@@ -1,26 +1,78 @@
-import { useMemo, useState, createContext } from 'react'
+import { useMemo, useState, createContext, useCallback } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { green, blue, grey } from '@mui/material/colors'
+import { green, blue, grey, yellow, red } from '@mui/material/colors'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 export default function Theme({ children }) {
-  const [mode, setMode] = useState(localStorage.darkMode || 'light')
+  const [mode, setMode] = useState(
+    ModeLocalStorege(localStorage.darkMode) || 'light'
+  )
+  const [color, setColor] = useState({
+    light: ColorLocalStorage(localStorage.colorLight) || blue,
+    dark: ColorLocalStorage(localStorage.colorDark) || green,
+  })
+
+  function ModeLocalStorege(mode) {
+    if (mode === 'light') return 'light'
+    else if (mode === 'dark') return 'dark'
+    else return
+  }
+  function ColorLocalStorage(color) {
+    if (color === 'yellow') return yellow
+    else if (color === 'blue') return blue
+    else if (color === 'green') return green
+    else if (color === 'red') return red
+    else return
+  }
+  function ColorLocalStorageDefiner(color) {
+    if (color === yellow) return 'yellow'
+    else if (color === blue) return 'blue'
+    else if (color === green) return 'green'
+    else if (color === red) return 'red'
+    else return
+  }
+  const toggleColorFunc = useCallback((mode, newColor) => {
+    if (mode === 'light') {
+      setColor((prev) => {
+        localStorage.colorLight = ColorLocalStorageDefiner(newColor)
+        return { light: newColor, dark: prev.dark }
+      })
+    } else {
+      setColor((prev) => {
+        localStorage.colorDark = ColorLocalStorageDefiner(newColor)
+        return { light: prev.light, dark: newColor }
+      })
+    }
+  }, [])
+
   const colorMode = useMemo(
     () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => {
-          if (prevMode === 'light') {
-            prevMode = 'dark'
+      toggleDarkMode: () => {
+        setMode((prev) => {
+          if (prev === 'light') {
+            prev = 'dark'
           } else {
-            prevMode = 'light'
+            prev = 'light'
           }
-          localStorage.darkMode = prevMode
-          return prevMode
+          localStorage.darkMode = prev
+          return prev
         })
       },
+      toggleColorLight: {
+        Yellow: () => toggleColorFunc('light', yellow),
+        Blue: () => toggleColorFunc('light', blue),
+        Green: () => toggleColorFunc('light', green),
+        Red: () => toggleColorFunc('light', red),
+      },
+      toggleColorDark: {
+        Yellow: () => toggleColorFunc('dark', yellow),
+        Blue: () => toggleColorFunc('dark', blue),
+        Green: () => toggleColorFunc('dark', green),
+        Red: () => toggleColorFunc('dark', red),
+      },
     }),
-    []
+    [toggleColorFunc]
   )
 
   const theme = useMemo(
@@ -30,16 +82,14 @@ export default function Theme({ children }) {
           mode,
           ...(mode === 'light'
             ? {
-                // light mode
-                primary: blue,
-                secondary: blue,
-                divider: blue[200],
+                // light
+                primary: color.light,
+                secondary: color.light,
               }
             : {
-                // dark mode
-                primary: green,
-                secondary: green,
-                divider: green[700],
+                // dark
+                primary: color.dark,
+                secondary: color.dark,
                 background: {
                   default: grey[800],
                   paper: grey[900],
@@ -47,7 +97,7 @@ export default function Theme({ children }) {
               }),
         },
       }),
-    [mode]
+    [mode, color]
   )
 
   return (

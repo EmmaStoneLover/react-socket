@@ -63,6 +63,7 @@ export default function App() {
           <Typography variant="p">Ничего тут нету</Typography>
         )}
       </Container>
+      <br />
     </Box>
   )
 }

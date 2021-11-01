@@ -8,15 +8,15 @@ const socket = io('https://node7socket.herokuapp.com')
 export default function Input({ message, setMessage, text, setText }) {
   const [loading, setLoading] = useState(false)
   function handleSubmit(e) {
-    e.preventDefault()
     setLoading(true)
+    e.preventDefault()
     socket.emit('message', { message: message, user: localStorage.username })
     setMessage('')
-    setLoading(false)
   }
   useEffect(() => {
     socket.on('message', (payload) => {
       setText([...text, payload])
+      setLoading(false)
     })
   })
 
@@ -41,6 +41,7 @@ export default function Input({ message, setMessage, text, setText }) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
+          disabled={loading}
         />
       </form>
     </>

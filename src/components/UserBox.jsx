@@ -98,7 +98,7 @@ export default function UserBox({ AUTH, logged, setLogged }) {
             Привет, {localStorage.username}
           </Typography>
           <Button
-            style={{ marginLeft: 30 }}
+            style={{ marginLeft: 10 }}
             color="secondary"
             variant="outlined"
             onClick={handleLogOut}
