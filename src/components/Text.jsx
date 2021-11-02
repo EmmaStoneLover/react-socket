@@ -53,11 +53,10 @@ export default function Text({ text, setText }) {
       <div>
         <Grid container sx={{ justifyContent: 'end' }}>
           {textSettings ? (
-            <Grid item sx="10">
+            <Grid item sx="7">
               <Button color="success" onClick={setTextToLocalStorage}>
                 Save text
               </Button>
-              <span>&nbsp; &nbsp;</span>
               <Button color="warning" onClick={deleteText}>
                 Delete text
               </Button>
@@ -65,7 +64,7 @@ export default function Text({ text, setText }) {
           ) : (
             ''
           )}
-          <Grid item sx="2">
+          <Grid item sx="1">
             <Button onClick={() => setTextSettings((prev) => !prev)}>
               ...
             </Button>

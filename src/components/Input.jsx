@@ -55,6 +55,7 @@ const Input = ({ text, setText }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
+          fullWidth
           // disabled={loading}
         />
       </form>
