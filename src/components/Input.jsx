@@ -3,10 +3,7 @@ import { TextField, Typography } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
 import io from 'socket.io-client'
 
-const socket = 'https://node7socket.herokuapp.com'
-// const socket = 'http://localhost:7000'
-
-const Input = ({ text, setText }) => {
+const Input = ({ socket, text, setText }) => {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -19,7 +16,7 @@ const Input = ({ text, setText }) => {
       setLoading(false)
     })
     return () => socketRef.current.disconnect()
-  }, [text, setText])
+  }, [text, setText, socket])
 
   const handleSubmit = useCallback(
     (e) => {
@@ -36,7 +33,7 @@ const Input = ({ text, setText }) => {
 
   return (
     <>
-      <Typography variant="h5">Вставсь сюда свой большой текст</Typography>
+      <Typography variant="h5">Вставить текст</Typography>
 
       <br />
       <form onSubmit={handleSubmit}>

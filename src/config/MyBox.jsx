@@ -7,8 +7,7 @@ export default function MyBox({ children }) {
         m: 2,
         p: 2,
         boxShadow: 5,
-        borderRadius: 5,
-        // maxWidth: 500,
+        borderRadius: 3,
       }}
     >
       {children}

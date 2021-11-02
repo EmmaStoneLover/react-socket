@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { Container, Typography, Box, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import './css/App.css'
+// import './css/App.css'
 
 import Text from './components/Text'
 import Input from './components/Input'
@@ -11,6 +11,7 @@ import Settings from './components/Settings'
 import { ColorModeContext } from './config/Theme'
 
 const AUTH = 'https://emmastonenodejs.herokuapp.com'
+const socket = 'https://node7socket.herokuapp.com'
 
 export default function App() {
   const firstText = () => {
@@ -43,7 +44,8 @@ export default function App() {
     >
       <Container className="App" maxWidth="sm">
         <br />
-        <Typography variant="h4">EmmaStone</Typography>
+        <br />
+        <Typography variant="h4">Emma Stone</Typography>
         <br />
         <Button onClick={() => setSettings((prev) => !prev)}>Settings</Button>
         {settings ? <Settings theme={theme} colorMode={colorMode} /> : ''}
@@ -65,7 +67,7 @@ export default function App() {
           </div>
         )}
         <MyBox>
-          <Input text={text} setText={setText} />
+          <Input socket={socket} text={text} setText={setText} />
         </MyBox>
       </Container>
       <br />
