@@ -95,7 +95,7 @@ export default function UserBox({ AUTH, logged, setLogged }) {
       ) : (
         <>
           <Typography variant="label">
-            Привет, {localStorage.username}
+            {localStorage.username} &nbsp; &nbsp;
           </Typography>
           <Button
             style={{ marginLeft: 10 }}
