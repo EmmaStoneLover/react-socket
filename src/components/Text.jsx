@@ -1,6 +1,7 @@
 import React from 'react'
-import MyBox from '../settings/MyBox'
 import '../css/App.css'
+
+import MyBox from '../config/MyBox'
 
 const styles = {
   p: {

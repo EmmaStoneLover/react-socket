@@ -1,8 +1,24 @@
 import { useMemo, useState, createContext, useCallback } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { green, blue, grey, yellow, red } from '@mui/material/colors'
+import {
+  grey,
+  yellow,
+  blue,
+  green,
+  red,
+  purple,
+  orange,
+} from '@mui/material/colors'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
+export const COLORS = [
+  { name: 'yellow', color: yellow },
+  { name: 'blue', color: blue },
+  { name: 'green', color: green },
+  { name: 'red', color: red },
+  { name: 'purple', color: purple },
+  { name: 'orange', color: orange },
+]
 
 export default function Theme({ children }) {
   const [mode, setMode] = useState(
@@ -19,33 +35,46 @@ export default function Theme({ children }) {
     else return
   }
   function ColorLocalStorage(color) {
-    if (color === 'yellow') return yellow
-    else if (color === 'blue') return blue
-    else if (color === 'green') return green
-    else if (color === 'red') return red
-    else return
+    let right = null
+    COLORS.forEach((cl) => {
+      if (color === cl.name) right = cl.color
+    })
+    return right
   }
-  function ColorLocalStorageDefiner(color) {
-    if (color === yellow) return 'yellow'
-    else if (color === blue) return 'blue'
-    else if (color === green) return 'green'
-    else if (color === red) return 'red'
-    else return
-  }
-  const toggleColorFunc = useCallback((mode, newColor) => {
-    if (mode === 'light') {
-      setColor((prev) => {
-        localStorage.colorLight = ColorLocalStorageDefiner(newColor)
-        return { light: newColor, dark: prev.dark }
-      })
-    } else {
-      setColor((prev) => {
-        localStorage.colorDark = ColorLocalStorageDefiner(newColor)
-        return { light: prev.light, dark: newColor }
-      })
-    }
+  const ColorLocalStorageDefiner = useCallback((color) => {
+    let right = null
+    COLORS.forEach((cl) => {
+      if (color === cl.color) right = cl.name
+    })
+    return right
   }, [])
-
+  const toggleColorFunc = useCallback(
+    (mode, newColor) => {
+      if (mode === 'light') {
+        setColor((prev) => {
+          localStorage.colorLight = ColorLocalStorageDefiner(newColor)
+          return { light: newColor, dark: prev.dark }
+        })
+      } else {
+        setColor((prev) => {
+          localStorage.colorDark = ColorLocalStorageDefiner(newColor)
+          return { light: prev.light, dark: newColor }
+        })
+      }
+    },
+    [ColorLocalStorageDefiner]
+  )
+  const toggleColor = useCallback(
+    (mode) => {
+      let right = {}
+      COLORS.forEach((cl) => {
+        right[cl.name] = () =>
+          toggleColorFunc(mode === 'light' ? 'light' : 'dark', cl.color)
+      })
+      return right
+    },
+    [toggleColorFunc]
+  )
   const colorMode = useMemo(
     () => ({
       toggleDarkMode: () => {
@@ -59,20 +88,10 @@ export default function Theme({ children }) {
           return prev
         })
       },
-      toggleColorLight: {
-        Yellow: () => toggleColorFunc('light', yellow),
-        Blue: () => toggleColorFunc('light', blue),
-        Green: () => toggleColorFunc('light', green),
-        Red: () => toggleColorFunc('light', red),
-      },
-      toggleColorDark: {
-        Yellow: () => toggleColorFunc('dark', yellow),
-        Blue: () => toggleColorFunc('dark', blue),
-        Green: () => toggleColorFunc('dark', green),
-        Red: () => toggleColorFunc('dark', red),
-      },
+      toggleColorLight: toggleColor('light'),
+      toggleColorDark: toggleColor('dark'),
     }),
-    [toggleColorFunc]
+    [toggleColor]
   )
 
   const theme = useMemo(

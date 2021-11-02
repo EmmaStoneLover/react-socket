@@ -1,6 +1,6 @@
 import { Button, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
 import LoadingButton from '@mui/lab/LoadingButton'
+import { useState } from 'react'
 
 export default function UserBox({ AUTH, logged, setLogged }) {
   const [userInput, setUserInput] = useState('')

@@ -1,13 +1,14 @@
 import { useState, useContext } from 'react'
-import './css/App.css'
-import Text from './components/Text'
-import Input from './components/Input'
-import MyBox from './settings/MyBox'
-import UserBox from './components/UserBox'
-import Settings from './settings/Settings'
 import { Container, Typography, Box, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { ColorModeContext } from './settings/Theme'
+import './css/App.css'
+
+import Text from './components/Text'
+import Input from './components/Input'
+import MyBox from './config/MyBox'
+import UserBox from './components/UserBox'
+import Settings from './components/Settings'
+import { ColorModeContext } from './config/Theme'
 
 const AUTH = 'https://emmastonenodejs.herokuapp.com'
 
