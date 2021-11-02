@@ -13,7 +13,6 @@ import { ColorModeContext } from './config/Theme'
 const AUTH = 'https://emmastonenodejs.herokuapp.com'
 
 export default function App() {
-  const [message, setMessage] = useState('')
   const [text, setText] = useState([])
   const [logged, setLogged] = useState(() => {
     return localStorage.username &&
@@ -51,12 +50,7 @@ export default function App() {
           />
         </MyBox>
         <MyBox>
-          <Input
-            message={message}
-            setMessage={setMessage}
-            text={text}
-            setText={setText}
-          />
+          <Input text={text} setText={setText} />
         </MyBox>
         {text.length ? (
           <Text text={text} />
