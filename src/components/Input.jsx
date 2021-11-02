@@ -1,29 +1,38 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { TextField, Typography } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
 import io from 'socket.io-client'
 
-const socket = io('https://node7socket.herokuapp.com')
+const socket = 'https://node7socket.herokuapp.com'
+// const socket = 'http://localhost:7000'
 
 const Input = ({ text, setText }) => {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = useCallback(
-    (e) => {
-      setLoading(true)
-      e.preventDefault()
-      socket.emit('message', { message: message, user: localStorage.username })
-      setMessage('')
-    },
-    [message, localStorage.username]
-  )
+  const socketRef = useRef()
+
   useEffect(() => {
-    socket.on('message', (payload) => {
+    socketRef.current = io.connect(socket)
+    socketRef.current.on('message', (payload) => {
       setText([...text, payload])
       setLoading(false)
     })
-  }, [text])
+    return () => socketRef.current.disconnect()
+  }, [text, setText])
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
+      setLoading(true)
+      socketRef.current.emit('message', {
+        message: message,
+        user: localStorage.username,
+      })
+      setMessage('')
+    },
+    [message]
+  )
 
   return (
     <>
