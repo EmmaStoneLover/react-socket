@@ -4,6 +4,7 @@
 
 .textLeft {
   text-align: left;
+  word-wrap: break-word;
 }
 
 .textRight {

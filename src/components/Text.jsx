@@ -32,7 +32,7 @@ export default function Text({ text, setText }) {
             {payload.user !== null &&
             payload.user !== 'null' &&
             payload.user ? (
-              <Typography variant="b" color="primary">
+              <Typography component="b" color="primary">
                 &nbsp; {payload.user} &nbsp;
               </Typography>
             ) : (
@@ -53,6 +53,7 @@ export default function Text({ text, setText }) {
           </Grid>
           {textSettings ? (
             <Grid item xs={10}>
+              &nbsp; &nbsp;
               <Button color="success" onClick={setTextToLocalStorage}>
                 Save text
               </Button>
