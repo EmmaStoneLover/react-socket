@@ -20,14 +20,14 @@ export default function Text({ text, setText }) {
     <MyBox>
       {text.map((payload, index) => {
         return (
-          <p
-            style={{ fontSize: '16px' }}
+          <Typography
+            component="p"
+            key={index}
             className={`
               textLeft
               ${payload.user === 'Миша' ? 'textRight' : ''} 
               ${payload.user === 'Emma Stone' ? 'textCenter' : ''}
               `}
-            key={index}
           >
             {payload.user !== null &&
             payload.user !== 'null' &&
@@ -39,13 +39,18 @@ export default function Text({ text, setText }) {
               ''
             )}
             {payload.message}
-          </p>
+          </Typography>
         )
       })}
       <br />
       <br />
       <div>
-        <Grid container style={{ textAlign: 'end', justifyContent: 'end' }}>
+        <Grid container style={{ textAlign: 'start' }}>
+          <Grid item xs={2}>
+            <Button onClick={() => setTextSettings((prev) => !prev)}>
+              •••
+            </Button>
+          </Grid>
           {textSettings ? (
             <Grid item xs={10}>
               <Button color="success" onClick={setTextToLocalStorage}>
@@ -58,11 +63,6 @@ export default function Text({ text, setText }) {
           ) : (
             ''
           )}
-          <Grid item xs={2}>
-            <Button onClick={() => setTextSettings((prev) => !prev)}>
-              •••
-            </Button>
-          </Grid>
         </Grid>
       </div>
     </MyBox>
