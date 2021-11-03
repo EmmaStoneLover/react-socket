@@ -20,8 +20,7 @@ export default function Text({ text, setText }) {
     <MyBox>
       {text.map((payload, index) => {
         return (
-          <Typography
-            variant="p"
+          <p
             style={{ fontSize: '16px' }}
             className={`
               textLeft
@@ -40,7 +39,7 @@ export default function Text({ text, setText }) {
               ''
             )}
             {payload.message}
-          </Typography>
+          </p>
         )
       })}
       <br />
