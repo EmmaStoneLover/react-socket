@@ -8,7 +8,7 @@ import UserBox from './components/UserBox'
 import Settings from './components/Settings'
 import { ColorModeContext } from './config/Theme'
 
-import { MyBox, MyButton } from './config/config'
+import { MyBox } from './config/config'
 
 export default function App() {
   const firstText = () => {
