@@ -29,7 +29,6 @@ export default function App() {
 
   const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
-  const [settings, setSettings] = useState(false)
 
   const end = {}
 
@@ -46,10 +45,7 @@ export default function App() {
         <br />
         <Typography variant="h4">Emma Stone</Typography>
         <br />
-        <MyButton onClick={() => setSettings((prev) => !prev)}>
-          Settings
-        </MyButton>
-        {settings ? <Settings theme={theme} colorMode={colorMode} /> : ''}
+        <Settings theme={theme} colorMode={colorMode} />
         <MyBox>
           <UserBox
             logged={logged}
