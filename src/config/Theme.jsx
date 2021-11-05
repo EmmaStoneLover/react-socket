@@ -12,12 +12,12 @@ import {
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 export const COLORS = [
-  { name: 'yellow', color: yellow },
-  { name: 'blue', color: blue },
-  { name: 'green', color: green },
-  { name: 'red', color: red },
-  { name: 'purple', color: purple },
-  { name: 'orange', color: orange },
+  { name: 'yellow', color: yellow, Name: 'Yellow' },
+  { name: 'blue', color: blue, Name: 'Blue' },
+  { name: 'green', color: green, Name: 'Green' },
+  { name: 'red', color: red, Name: 'Red' },
+  { name: 'purple', color: purple, Name: 'Purple' },
+  { name: 'orange', color: orange, Name: 'Orange' },
 ]
 
 export default function Theme({ children }) {
@@ -104,14 +104,18 @@ export default function Theme({ children }) {
                 // light
                 primary: color.light,
                 secondary: color.light,
+                background: {
+                  default: grey[100],
+                  myBox: 'white',
+                },
               }
             : {
                 // dark
                 primary: color.dark,
                 secondary: color.dark,
                 background: {
-                  default: grey[800],
-                  paper: grey[900],
+                  default: grey[900],
+                  myBox: 'rgb(255, 255, 255, 0.05)',
                 },
               }),
         },

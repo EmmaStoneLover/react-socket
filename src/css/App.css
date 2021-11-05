@@ -14,3 +14,7 @@
 .textCenter {
   text-align: center;
 }
+
+.btn {
+  text-transform: none;
+}

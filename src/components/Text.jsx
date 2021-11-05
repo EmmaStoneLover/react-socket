@@ -2,7 +2,9 @@ import { useState } from 'react'
 import '../css/App.css'
 
 import MyBox from '../config/MyBox'
-import { Button, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
+
+import MyButton from '../config/MyButton'
 
 export default function Text({ text, setText }) {
   const [textSettings, setTextSettings] = useState(false)
@@ -43,23 +45,22 @@ export default function Text({ text, setText }) {
         )
       })}
       <br />
-      <br />
       <div>
-        <Grid container style={{ textAlign: 'start' }}>
+        <Grid container sx={{ textAlign: 'start' }}>
           <Grid item xs={2}>
-            <Button onClick={() => setTextSettings((prev) => !prev)}>
+            <MyButton onClick={() => setTextSettings((prev) => !prev)}>
               •••
-            </Button>
+            </MyButton>
           </Grid>
           {textSettings ? (
             <Grid item xs={10}>
               &nbsp; &nbsp;
-              <Button color="success" onClick={setTextToLocalStorage}>
+              <MyButton color="success" onClick={setTextToLocalStorage}>
                 Save text
-              </Button>
-              <Button color="error" onClick={deleteText}>
+              </MyButton>
+              <MyButton color="error" onClick={deleteText}>
                 Delete text
-              </Button>
+              </MyButton>
             </Grid>
           ) : (
             ''

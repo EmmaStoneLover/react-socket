@@ -1,22 +1,24 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { TextField, Typography } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+import { Grid, TextField, Typography } from '@mui/material'
 import io from 'socket.io-client'
 
-const Input = ({ socket, text, setText }) => {
+import config, { MyLoadingButton } from '../config/config'
+
+const Input = ({ text, setText, end }) => {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
   const socketRef = useRef()
 
   useEffect(() => {
-    socketRef.current = io.connect(socket)
+    socketRef.current = io.connect(config.socket)
     socketRef.current.on('message', (payload) => {
       setText([...text, payload])
       setLoading(false)
     })
+    end.current.scrollIntoView({ behavior: 'smooth' })
     return () => socketRef.current.disconnect()
-  }, [text, setText, socket])
+  }, [text, setText, end])
 
   const handleSubmit = useCallback(
     (e) => {
@@ -33,28 +35,31 @@ const Input = ({ socket, text, setText }) => {
 
   return (
     <>
-      <Typography variant="h5">Вставить текст</Typography>
-
-      <br />
+      {/* <Typography variant="h5">Вставить текст</Typography>
+      <br /> */}
       <form onSubmit={handleSubmit}>
-        <LoadingButton
-          loading={loading}
-          type="submit"
-          color="secondary"
-          variant="outlined"
-        >
-          Send
-        </LoadingButton>
-        <br />
-        <br />
-        <TextField
-          label="Вставить сюда"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-          fullWidth
-          // disabled={loading}
-        />
+        <Grid container sx={{ p: 1 }}>
+          <Grid item xs={10}>
+            <TextField
+              required
+              label="Вставить сюда"
+              variant="outlined"
+              value={message}
+              fullWidth
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={2} sx={{ mt: '11px', textAlign: 'end' }}>
+            <MyLoadingButton
+              loading={loading}
+              type="submit"
+              color="secondary"
+              // variant="outlined"
+            >
+              Send
+            </MyLoadingButton>
+          </Grid>
+        </Grid>
       </form>
     </>
   )

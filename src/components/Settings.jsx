@@ -1,6 +1,10 @@
-import { Button, FormControlLabel, Switch } from '@mui/material'
+import { FormControlLabel, Switch } from '@mui/material'
 import { COLORS } from '../config/Theme'
 import MyBox from '../config/MyBox'
+import '../css/App.css'
+
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import MyButton from '../config/MyButton'
 
 export default function Settings({ theme, colorMode }) {
   return (
@@ -12,31 +16,24 @@ export default function Settings({ theme, colorMode }) {
             checked={theme.palette.mode === 'light' ? false : true}
           />
         }
-        label="Dark Mode"
+        label={<DarkModeIcon sx={{ mt: '7px' }} />}
         labelPlacement="start"
       />
       <br />
-      {theme.palette.mode === 'light' ? (
-        <div>
-          {COLORS.map((cl, i) => {
-            return (
-              <Button onClick={colorMode.toggleColorLight[cl.name]} key={i}>
-                {cl.name}
-              </Button>
-            )
-          })}
-        </div>
-      ) : (
-        <div>
-          {COLORS.map((cl, i) => {
-            return (
-              <Button onClick={colorMode.toggleColorDark[cl.name]} key={i}>
-                {cl.name}
-              </Button>
-            )
-          })}
-        </div>
-      )}
+      {COLORS.map((cl, i) => {
+        return (
+          <MyButton
+            onClick={
+              theme.palette.mode === 'light'
+                ? colorMode.toggleColorLight[cl.name]
+                : colorMode.toggleColorDark[cl.name]
+            }
+            key={i}
+          >
+            {cl.Name}
+          </MyButton>
+        )
+      })}
     </MyBox>
   )
 }

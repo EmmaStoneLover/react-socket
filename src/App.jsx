@@ -1,17 +1,14 @@
 import { useState, useContext } from 'react'
-import { Container, Typography, Box, Button } from '@mui/material'
+import { Container, Typography, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-// import './css/App.css'
 
 import Text from './components/Text'
 import Input from './components/Input'
-import MyBox from './config/MyBox'
 import UserBox from './components/UserBox'
 import Settings from './components/Settings'
 import { ColorModeContext } from './config/Theme'
 
-const AUTH = 'https://emmastonenodejs.herokuapp.com'
-const socket = 'https://node7socket.herokuapp.com'
+import { MyBox, MyButton } from './config/config'
 
 export default function App() {
   const firstText = () => {
@@ -34,6 +31,8 @@ export default function App() {
   const colorMode = useContext(ColorModeContext)
   const [settings, setSettings] = useState(false)
 
+  const end = {}
+
   return (
     <Box
       sx={{
@@ -47,11 +46,12 @@ export default function App() {
         <br />
         <Typography variant="h4">Emma Stone</Typography>
         <br />
-        <Button onClick={() => setSettings((prev) => !prev)}>Settings</Button>
+        <MyButton onClick={() => setSettings((prev) => !prev)}>
+          Settings
+        </MyButton>
         {settings ? <Settings theme={theme} colorMode={colorMode} /> : ''}
         <MyBox>
           <UserBox
-            AUTH={AUTH}
             logged={logged}
             setLogged={setLogged}
             text={text}
@@ -67,10 +67,10 @@ export default function App() {
           </div>
         )}
         <MyBox>
-          <Input socket={socket} text={text} setText={setText} />
+          <Input text={text} setText={setText} end={end} />
         </MyBox>
       </Container>
-      <br />
+      <br ref={end} />
     </Box>
   )
 }

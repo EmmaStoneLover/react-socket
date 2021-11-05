@@ -1,8 +1,9 @@
-import { Button, TextField, Typography } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+import { TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
-export default function UserBox({ AUTH, logged, setLogged }) {
+import config, { MyButton, MyLoadingButton } from '../config/config'
+
+export default function UserBox({ logged, setLogged }) {
   const [userInput, setUserInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -14,7 +15,7 @@ export default function UserBox({ AUTH, logged, setLogged }) {
     }
     console.log('Отправляю:', data)
     const res = await (
-      await fetch(`${AUTH}/auth/login`, {
+      await fetch(`${config.AUTH}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -60,14 +61,14 @@ export default function UserBox({ AUTH, logged, setLogged }) {
             <Typography variant="label" style={{ marginRight: 25 }}>
               Эй ю ты кто? а
             </Typography>
-            <LoadingButton
+            <MyLoadingButton
               loading={loading}
               type="submit"
               color="secondary"
               variant="outlined"
             >
               Вoйти
-            </LoadingButton>
+            </MyLoadingButton>
             <br />
             <br />
             <TextField
@@ -97,14 +98,14 @@ export default function UserBox({ AUTH, logged, setLogged }) {
           <Typography variant="label">
             {localStorage.username} &nbsp; &nbsp;
           </Typography>
-          <Button
+          <MyButton
             style={{ marginLeft: 10 }}
             color="secondary"
             variant="outlined"
             onClick={handleLogOut}
           >
             Выйти
-          </Button>
+          </MyButton>
         </>
       )}
     </div>
