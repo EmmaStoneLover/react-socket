@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { Container, Typography, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
@@ -30,7 +30,7 @@ export default function App() {
   const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
 
-  const end = {}
+  const end = useRef()
 
   return (
     <Box

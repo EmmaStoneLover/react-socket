@@ -1,4 +1,5 @@
-import { FormControlLabel, Switch } from '@mui/material'
+// import { useState } from 'react'
+import { FormControlLabel, Switch, Button } from '@mui/material'
 import { COLORS } from '../config/Theme'
 import MyBox from '../config/MyBox'
 import '../css/App.css'
@@ -7,8 +8,10 @@ import DarkModeIcon from '@mui/icons-material/DarkMode'
 import MyButton from '../config/MyButton'
 
 export default function Settings({ theme, colorMode }) {
+  // const [customMode, setCustomMode] = useState(localStorage.customMode || false)
   return (
     <MyBox>
+      <Button onClick={colorMode.setCustomMode}>customMode</Button>
       <FormControlLabel
         control={
           <Switch

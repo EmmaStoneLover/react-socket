@@ -1,4 +1,4 @@
-import { useMemo, useState, createContext, useCallback } from 'react'
+import { useMemo, useState, createContext, useCallback, useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import {
   grey,
@@ -9,6 +9,7 @@ import {
   purple,
   orange,
 } from '@mui/material/colors'
+import { useMediaQuery } from '@mui/material'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 export const COLORS = [
@@ -21,9 +22,26 @@ export const COLORS = [
 ]
 
 export default function Theme({ children }) {
-  const [mode, setMode] = useState(
-    ModeLocalStorege(localStorage.darkMode) || 'light'
-  )
+  let darkQuery = useMediaQuery('(prefers-color-scheme: dark)')
+  const [customMode, setCustomMode] = useState(localStorage.customMode)
+  const [mode, setMode] = useState(() => {
+    if (customMode) {
+      return ModeLocalStorege(localStorage.darkMode)
+    } else {
+      return darkQuery ? 'dark' : 'light'
+    }
+  })
+
+  useEffect(() => {
+    if (!customMode) {
+      if (darkQuery) {
+        setMode('dark')
+      } else {
+        setMode('light')
+      }
+    }
+  }, [customMode, darkQuery])
+
   const [color, setColor] = useState({
     light: ColorLocalStorage(localStorage.colorLight) || blue,
     dark: ColorLocalStorage(localStorage.colorDark) || green,
@@ -87,6 +105,9 @@ export default function Theme({ children }) {
           localStorage.darkMode = prev
           return prev
         })
+      },
+      setCustomMode: () => {
+        setCustomMode((prev) => !prev)
       },
       toggleColorLight: toggleColor('light'),
       toggleColorDark: toggleColor('dark'),
