@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../css/App.css'
 
 import MyBox from '../config/MyBox'
-import { Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 
 import MyButton from '../config/MyButton'
 
@@ -19,54 +19,63 @@ export default function Text({ text, setText }) {
   }
 
   return (
-    <MyBox>
-      {text.map((payload, index) => {
-        return (
-          <Typography
-            component="p"
-            key={index}
-            className={`
+    <>
+      {text.length ? (
+        <MyBox>
+          {text.map((payload, index) => {
+            return (
+              <Typography
+                component="p"
+                key={index}
+                className={`
               textLeft
               ${payload.user === 'Миша' ? 'textRight' : ''} 
               ${payload.user === 'Emma Stone' ? 'textCenter' : ''}
               `}
-          >
-            {payload.user !== null &&
-            payload.user !== 'null' &&
-            payload.user ? (
-              <Typography component="b" color="primary">
-                &nbsp; {payload.user} &nbsp;
+              >
+                {payload.user !== null &&
+                payload.user !== 'null' &&
+                payload.user ? (
+                  <Typography component="b" color="primary">
+                    &nbsp; {payload.user} &nbsp;
+                  </Typography>
+                ) : (
+                  ''
+                )}
+                {payload.message}
               </Typography>
-            ) : (
-              ''
-            )}
-            {payload.message}
-          </Typography>
-        )
-      })}
-      <br />
-      <div>
-        <Grid container sx={{ textAlign: 'start' }}>
-          <Grid item xs={2}>
-            <MyButton onClick={() => setTextSettings((prev) => !prev)}>
-              •••
-            </MyButton>
-          </Grid>
-          {textSettings ? (
-            <Grid item xs={10}>
-              &nbsp; &nbsp;
-              <MyButton color="success" onClick={setTextToLocalStorage}>
-                Save text
-              </MyButton>
-              <MyButton color="error" onClick={deleteText}>
-                Delete text
-              </MyButton>
+            )
+          })}
+          <br />
+          <div>
+            <Grid container style={{ textAlign: 'start' }}>
+              <Grid item xs={2}>
+                <MyButton onClick={() => setTextSettings((prev) => !prev)}>
+                  •••
+                </MyButton>
+              </Grid>
+              {textSettings ? (
+                <Grid item xs={10}>
+                  &nbsp; &nbsp;
+                  <Button color="success" onClick={setTextToLocalStorage}>
+                    Save text
+                  </Button>
+                  <Button color="error" onClick={deleteText}>
+                    Delete text
+                  </Button>
+                </Grid>
+              ) : (
+                ''
+              )}
             </Grid>
-          ) : (
-            ''
-          )}
-        </Grid>
-      </div>
-    </MyBox>
+          </div>
+        </MyBox>
+      ) : (
+        <div>
+          <Typography variant="p">Ничего тут нету</Typography>
+          <br />
+        </div>
+      )}
+    </>
   )
 }

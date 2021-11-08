@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './css/index.css'
 
-import App from './App.jsx'
+import Apple from './Apple.jsx'
 import Theme from './config/Theme'
 
 ReactDOM.render(
   <Theme>
-    <App />
+    <Apple />
   </Theme>,
   document.getElementById('root')
 )

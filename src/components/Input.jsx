@@ -34,34 +34,30 @@ const Input = ({ text, setText, end }) => {
   )
 
   return (
-    <>
-      {/* <Typography variant="h5">Вставить текст</Typography>
-      <br /> */}
-      <form onSubmit={handleSubmit}>
-        <Grid container sx={{ p: 1 }}>
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="Вставить сюда"
-              variant="outlined"
-              value={message}
-              fullWidth
-              onChange={(e) => setMessage(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={2} sx={{ mt: '11px', textAlign: 'end' }}>
-            <MyLoadingButton
-              loading={loading}
-              type="submit"
-              color="secondary"
-              // variant="outlined"
-            >
-              Send
-            </MyLoadingButton>
-          </Grid>
+    <form onSubmit={handleSubmit}>
+      <Grid container sx={{ p: 1 }}>
+        <Grid item xs={10}>
+          <TextField
+            required
+            label="Вставить сюда"
+            variant="outlined"
+            value={message}
+            fullWidth
+            onChange={(e) => setMessage(e.target.value)}
+          />
         </Grid>
-      </form>
-    </>
+        <Grid item xs={2} sx={{ mt: '11px', textAlign: 'end' }}>
+          <MyLoadingButton
+            loading={loading}
+            type="submit"
+            color="secondary"
+            // variant="outlined"
+          >
+            Send
+          </MyLoadingButton>
+        </Grid>
+      </Grid>
+    </form>
   )
 }
 

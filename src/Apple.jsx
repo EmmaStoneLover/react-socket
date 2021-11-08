@@ -10,7 +10,7 @@ import { ColorModeContext } from './config/Theme'
 
 import { MyBox } from './config/config'
 
-export default function App() {
+export default function Apple() {
   const firstText = () => {
     try {
       return JSON.parse(localStorage.text)
@@ -54,14 +54,7 @@ export default function App() {
             setText={setText}
           />
         </MyBox>
-        {text.length ? (
-          <Text text={text} setText={setText} />
-        ) : (
-          <div>
-            <Typography variant="p">Ничего тут нету</Typography>
-            <br />
-          </div>
-        )}
+        <Text text={text} setText={setText} />
         <MyBox>
           <Input text={text} setText={setText} end={end} />
         </MyBox>
