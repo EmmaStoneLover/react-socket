@@ -8,7 +8,6 @@ import {
   yellow,
   blue,
   green,
-  red,
   purple,
   orange,
 } from '@mui/material/colors'
@@ -19,7 +18,6 @@ export const COLORS = [
   { name: 'yellow', color: yellow, Name: 'Yellow' },
   { name: 'blue', color: blue, Name: 'Blue' },
   { name: 'green', color: green, Name: 'Green' },
-  { name: 'red', color: red, Name: 'Red' },
   { name: 'purple', color: purple, Name: 'Purple' },
   { name: 'orange', color: orange, Name: 'Orange' },
 ]
