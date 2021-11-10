@@ -37,7 +37,7 @@ export default function Settings({ theme, colorMode }) {
   const handleColorChoise = (_, choise) => {
     try {
       if (modeChoise === 'system') {
-        if (modeChoise === 'light') {
+        if (theme.palette.mode === 'light') {
           colorMode.Color.light[choise]()
           setColorChoise(choise)
         } else {
