@@ -3,42 +3,27 @@ import { useMemo, useState, createContext, useCallback, useEffect } from 'react'
 // eslint-disable-next-line
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 // eslint-disable-next-line
-import {
-  grey,
-  yellow,
-  blue,
-  green,
-  purple,
-  orange,
-} from '@mui/material/colors'
+import { grey, yellow, blue, green, purple, orange } from '@mui/material/colors'
 import { useMediaQuery } from '@mui/material'
 
+import config from './config'
+
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
-export const COLORS = [
-  { name: 'yellow', color: yellow, Name: 'Yellow' },
-  { name: 'blue', color: blue, Name: 'Blue' },
-  { name: 'green', color: green, Name: 'Green' },
-  { name: 'purple', color: purple, Name: 'Purple' },
-  { name: 'orange', color: orange, Name: 'Orange' },
-]
 
 export default function Theme({ children }) {
-  const LSMode = localStorage.mode || 'system'
-  // const LS = useMemo(() => {
-  //   const a = {
-  //     system: LSMode === 'system' ? true : false,
-  //     active: () => {
-  //       if (LSMode === 'light') return 'light'
-  //       if (LSMode === 'dark') return 'dark'
-  //       else return 'light'
-  //     },
-  //   }
-  //   return a
-  // }, [LSMode])
-
-  let darkQuery = useMediaQuery('(prefers-color-scheme: dark)')
+  // цвет из localStorage
+  const LSMode = localStorage.mode || config.standartMode
   const [mode, setMode] = useState(LSMode)
 
+  // dark mode из localStorage
+  const darkQuery = useMediaQuery('(prefers-color-scheme: dark)')
+  // цвет primary и secondary для кнопок и всей хуйни
+  const [color, setColor] = useState({
+    light: ColorLS(localStorage.colorLight) || config.standartColor.light,
+    dark: ColorLS(localStorage.colorDark) || config.standartColor.dark,
+  })
+
+  // useEffect при изменении (prefers-color-scheme: dark)
   useEffect(() => {
     if (LSMode) {
       if (LSMode === 'system') {
@@ -55,46 +40,45 @@ export default function Theme({ children }) {
     } else return
   }, [LSMode, darkQuery])
 
-  const [color, setColor] = useState({
-    light: ColorLocalStorage(localStorage.colorLight) || blue,
-    dark: ColorLocalStorage(localStorage.colorDark) || green,
-  })
-  // console.log(color)
-  function ColorLocalStorage(color) {
+  // функция ( localStorage.цвет -> цвет )
+  function ColorLS(color) {
     let right = null
-    COLORS.forEach((cl) => {
+    config.COLORS.forEach((cl) => {
       if (color === cl.name) right = cl.color
     })
     return right
   }
-  const ColorLocalStorageDefiner = useCallback((color) => {
+  // функция ( цвет -> localStorage.цвет )
+  const ColorLSDefiner = useCallback((color) => {
     let right = null
-    COLORS.forEach((cl) => {
+    config.COLORS.forEach((cl) => {
       if (color === cl.color) right = cl.name
     })
     return right
   }, [])
 
+  // помогает toggleColor ниже
   const toggleColorFunc = useCallback(
     (mode, newColor) => {
       if (mode === 'light') {
         setColor((prev) => {
-          localStorage.colorLight = ColorLocalStorageDefiner(newColor)
+          localStorage.colorLight = ColorLSDefiner(newColor)
           return { light: newColor, dark: prev.dark }
         })
       } else {
         setColor((prev) => {
-          localStorage.colorDark = ColorLocalStorageDefiner(newColor)
+          localStorage.colorDark = ColorLSDefiner(newColor)
           return { light: prev.light, dark: newColor }
         })
       }
     },
-    [ColorLocalStorageDefiner]
+    [ColorLSDefiner]
   )
+  // возвращает { цвет: { light: {}, dark: {} }, цвет: ... }
   const toggleColor = useCallback(
     (mode) => {
       let right = {}
-      COLORS.forEach((cl) => {
+      config.COLORS.forEach((cl) => {
         right[cl.name] = () =>
           toggleColorFunc(mode === 'light' ? 'light' : 'dark', cl.color)
       })
@@ -103,35 +87,12 @@ export default function Theme({ children }) {
     [toggleColorFunc]
   )
 
-  const colorMode = useMemo(
-    () => ({
-      Mode: {
-        system: () => {
-          localStorage.mode = 'system'
-          setMode({ ...mode, system: true })
-        },
-        light: () => {
-          localStorage.mode = 'light'
-          setMode({ system: false, active: 'light' })
-        },
-        dark: () => {
-          localStorage.mode = 'dark'
-          setMode({ system: false, active: 'dark' })
-        },
-      },
-      Color: {
-        light: toggleColor('light'),
-        dark: toggleColor('dark'),
-      },
-    }),
-    [toggleColor, mode]
-  )
-
+  // сама тема
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: mode.active,
+          mode: mode.active, // нихуя себе сам додумался до такого
           ...(mode.active === 'light'
             ? {
                 // light
@@ -154,6 +115,34 @@ export default function Theme({ children }) {
         },
       }),
     [mode, color]
+  )
+  // useContext функции
+  const colorMode = useMemo(
+    () => ({
+      Mode: {
+        system: () => {
+          localStorage.mode = 'system'
+          setMode({ ...mode, system: true })
+        },
+        light: () => {
+          localStorage.mode = 'light'
+          setMode({ system: false, active: 'light' })
+        },
+        dark: () => {
+          localStorage.mode = 'dark'
+          setMode({ system: false, active: 'dark' })
+        },
+      },
+      Color: {
+        light: toggleColor('light'),
+        dark: toggleColor('dark'),
+        // какой 'цвет' сейчас
+        colorDefiner: ColorLSDefiner(
+          theme.palette.mode === 'light' ? color.light : color.dark
+        ),
+      },
+    }),
+    [toggleColor, ColorLSDefiner, mode, color, theme.palette.mode]
   )
 
   return (

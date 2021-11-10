@@ -1,23 +1,23 @@
+import '../css/App.css'
 // eslint-disable-next-line
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // eslint-disable-next-line
 import { FormControlLabel, Switch, Button } from '@mui/material'
 // eslint-disable-next-line
 import { ToggleButtonGroup } from '@mui/material'
 // eslint-disable-next-line
-import { COLORS } from '../config/Theme'
-// eslint-disable-next-line
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 // eslint-disable-next-line
 import { MyButton, MyBox, MyToggleButton } from '../config/config'
-import '../css/App.css'
+import config from '../config/config'
 
 export default function Settings({ theme, colorMode }) {
+  // все для mode
   const [modeChoise, setModeChoise] = useState(() => {
     if (localStorage.mode === 'system') return 'system'
     if (localStorage.mode === 'light') return 'light'
     if (localStorage.mode === 'dark') return 'dark'
-    else return 'system'
+    else return config.standartMode
   })
   const handleModeChoise = (_, choise) => {
     if (choise === 'system') {
@@ -32,6 +32,7 @@ export default function Settings({ theme, colorMode }) {
     }
   }
 
+  // все для color
   const [colorChoise, setColorChoise] = useState()
   const handleColorChoise = (_, choise) => {
     try {
@@ -54,6 +55,15 @@ export default function Settings({ theme, colorMode }) {
       return
     }
   }
+  // будет менять цвет colorChoise при изменении темы
+  useEffect(() => {
+    if (theme.palette.mode === 'light') {
+      setColorChoise(colorMode.Color.colorDefiner)
+    } else {
+      setColorChoise(colorMode.Color.colorDefiner)
+    }
+    return colorMode.Color.colorDefiner
+  }, [colorMode.Color, theme.palette.mode])
 
   return (
     <MyBox>
@@ -78,7 +88,7 @@ export default function Settings({ theme, colorMode }) {
         value={colorChoise}
         onChange={handleColorChoise}
       >
-        {COLORS.map((cl, i) => {
+        {config.COLORS.map((cl, i) => {
           return (
             <MyToggleButton value={cl.name} key={i}>
               {cl.Name}

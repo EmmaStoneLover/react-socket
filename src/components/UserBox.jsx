@@ -4,14 +4,22 @@ import { useState } from 'react'
 import config, { MyButton, MyLoadingButton } from '../config/config'
 
 export default function UserBox({ logged, setLogged }) {
-  const [userInput, setUserInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
+  const [input, setInput] = useState({
+    password: '',
+    login: '',
+  })
+  const [label, setLabel] = useState({
+    error: { login: false, password: false },
+    login: 'логин Ноунейм',
+    password: 'пароль 1234',
+  })
   const [loading, setLoading] = useState(false)
 
+  // отправка
   async function fetchData() {
     const data = {
-      username: userInput,
-      password: passwordInput,
+      username: input.login,
+      password: input.password,
     }
     console.log('Отправляю:', data)
     const res = await (
@@ -24,33 +32,53 @@ export default function UserBox({ logged, setLogged }) {
       })
     ).json()
     console.log('Пришло:', res)
-    if (!res.userError && !res.passwordError && res.username) {
+    if (res.username && !res.userError && !res.passwordError) {
       localStorage.username = res.username
       localStorage.token = res.token
-      setLogged(true)
       console.log('Все збс', localStorage)
-    } else {
-      setUserInput('')
-      setPasswordInput('')
-      setLogged(false)
-      setLoading(false)
-      console.log('Errreeeeeeeeooeoeoeoeooeoeoeor')
+      setLogged(true)
+    } else fetchError(res)
+  }
+  // при ошибке
+  function fetchError(res) {
+    if (res.userError) {
+      setLabel({
+        error: { login: true, password: true },
+        login: res.userError,
+        password: 'и пароль твой говно',
+      })
+    } else if (res.passwordError) {
+      setLabel({
+        error: { login: false, password: true },
+        login: 'ты тупой, ',
+        password: res.passwordError,
+      })
     }
+    setLoading(false)
+  }
+  // выход
+  function handleLogOut() {
+    delete localStorage.username
+    delete localStorage.token
+    console.log(localStorage)
+    setLoading(false)
+    setLogged(false)
+    setInput({ login: '', password: '' })
+    setLabel({
+      error: { login: false, password: false },
+      login: 'логин Ноунейм',
+      password: 'пароль 1234',
+    })
   }
 
+  // жопа
   function handleSubmit(e) {
     e.preventDefault()
     setLoading(true)
     fetchData()
-  }
-  function handleLogOut() {
-    delete localStorage.username
-    delete localStorage.token
-    setLoading(false)
-    console.log(localStorage)
-    setLogged(false)
-    setUserInput('')
-    setPasswordInput('')
+    setInput((prev) => {
+      return { login: prev.login, password: '' }
+    })
   }
 
   return (
@@ -58,7 +86,7 @@ export default function UserBox({ logged, setLogged }) {
       {!logged ? (
         <>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <Typography variant="label" style={{ marginRight: 25 }}>
+            <Typography variant="label" sx={{ mr: '25px' }}>
               Эй ю ты кто? а
             </Typography>
             <MyLoadingButton
@@ -74,22 +102,30 @@ export default function UserBox({ logged, setLogged }) {
             <TextField
               required
               fullWidth
-              style={{ maxWidth: 500 }}
-              type="username"
-              label="логин Ноунейм"
-              vlaue={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
+              type="text"
+              error={label.error.login}
+              label={label.login}
+              vlaue={input.login}
+              onChange={(e) =>
+                setInput((prev) => {
+                  return { login: e.target.value, password: prev.password }
+                })
+              }
             />
             <br />
             <br />
             <TextField
               required
               fullWidth
-              style={{ maxWidth: 500 }}
-              type="password"
-              label="пароль 1234"
-              value={passwordInput}
-              onChange={(e) => setPasswordInput(e.target.value)}
+              type="text"
+              error={label.error.password}
+              label={label.password}
+              value={input.password}
+              onChange={(e) =>
+                setInput((prev) => {
+                  return { login: prev.login, password: e.target.value }
+                })
+              }
             />
           </form>
         </>
