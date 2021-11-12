@@ -10,8 +10,8 @@ const config = {
   AUTH: 'https://emmastonenodejs.herokuapp.com',
   // AUTH: 'https://emmastonenodejs.herokuapp.com',
   // Socket
-  socket: 'http://localhost:7000',
-  // socket: 'https://node7socket.herokuapp.com',
+  socket: 'https://node7socket.herokuapp.com',
+  // socket: 'http://localhost:7000',
   // Theme
   COLORS: [
     { name: 'yellow', color: yellow, Name: 'Yellow' },
