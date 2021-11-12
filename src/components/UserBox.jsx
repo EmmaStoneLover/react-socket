@@ -1,7 +1,7 @@
 import { TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
-import config, { MyButton, MyLoadingButton } from '../config/config'
+import config, { MyBox, MyButton, MyLoadingButton } from '../config/config'
 
 export default function UserBox({ logged, setLogged }) {
   const [input, setInput] = useState({
@@ -82,7 +82,7 @@ export default function UserBox({ logged, setLogged }) {
   }
 
   return (
-    <div>
+    <MyBox>
       {!logged ? (
         <>
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -102,7 +102,7 @@ export default function UserBox({ logged, setLogged }) {
             <TextField
               required
               fullWidth
-              type="text"
+              type="username"
               error={label.error.login}
               label={label.login}
               vlaue={input.login}
@@ -117,7 +117,7 @@ export default function UserBox({ logged, setLogged }) {
             <TextField
               required
               fullWidth
-              type="text"
+              type="password"
               error={label.error.password}
               label={label.password}
               value={input.password}
@@ -132,7 +132,8 @@ export default function UserBox({ logged, setLogged }) {
       ) : (
         <>
           <Typography variant="label">
-            {localStorage.username} &nbsp; &nbsp;
+            {input.login !== '' ? input.login : localStorage.username} &nbsp;
+            &nbsp;
           </Typography>
           <MyButton
             style={{ marginLeft: 10 }}
@@ -144,6 +145,6 @@ export default function UserBox({ logged, setLogged }) {
           </MyButton>
         </>
       )}
-    </div>
+    </MyBox>
   )
 }

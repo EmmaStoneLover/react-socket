@@ -6,10 +6,13 @@ import { FormControlLabel, Switch, Button } from '@mui/material'
 // eslint-disable-next-line
 import { ToggleButtonGroup } from '@mui/material'
 // eslint-disable-next-line
+import config, { MyButton, MyBox, MyToggleButton } from '../config/config'
+// eslint-disable-next-line
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+// eslint-disable-next-line
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 // eslint-disable-next-line
-import { MyButton, MyBox, MyToggleButton } from '../config/config'
-import config from '../config/config'
+import LightModeIcon from '@mui/icons-material/LightMode'
 
 export default function Settings({ theme, colorMode }) {
   // все для mode
@@ -73,9 +76,16 @@ export default function Settings({ theme, colorMode }) {
         value={modeChoise}
         onChange={handleModeChoise}
       >
-        <MyToggleButton value="system">System</MyToggleButton>
-        <MyToggleButton value="light">Light</MyToggleButton>
-        <MyToggleButton value="dark">Dark</MyToggleButton>
+        <MyToggleButton value="system">
+          System &nbsp;
+          <Brightness4Icon />
+        </MyToggleButton>
+        <MyToggleButton value="light">
+          <LightModeIcon />
+        </MyToggleButton>
+        <MyToggleButton value="dark">
+          <DarkModeIcon />
+        </MyToggleButton>
       </ToggleButtonGroup>
 
       <br />

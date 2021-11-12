@@ -1,10 +1,10 @@
+// eslint-disable-next-line
 import { useState } from 'react'
 import '../css/App.css'
-
-import MyBox from '../config/MyBox'
-import { Button, Grid, Typography } from '@mui/material'
-
-import MyButton from '../config/MyButton'
+// eslint-disable-next-line
+import { Grid, Typography } from '@mui/material'
+// eslint-disable-next-line
+import { MyBox, MyButton } from '../config/config'
 
 export default function Text({ text, setText }) {
   const [textSettings, setTextSettings] = useState(false)
@@ -29,20 +29,18 @@ export default function Text({ text, setText }) {
                 key={index}
                 className={`
               textLeft
-              ${payload.user === 'Миша' ? 'textRight' : ''} 
-              ${payload.user === 'Emma Stone' ? 'textCenter' : ''}
+              ${payload.user === 'Миша' ? 'textRight' : null} 
+              ${payload.user === 'Emma Stone' ? 'textCenter' : null}
               `}
               >
                 {payload.user !== null &&
                 payload.user !== 'null' &&
                 payload.user ? (
                   <Typography component="b" color="primary">
-                    &nbsp; {payload.user} &nbsp;
+                    &nbsp; {payload.user}
                   </Typography>
-                ) : (
-                  ''
-                )}
-                {payload.message}
+                ) : null}
+                &nbsp; {payload.message} &nbsp;
               </Typography>
             )
           })}
@@ -57,16 +55,14 @@ export default function Text({ text, setText }) {
               {textSettings ? (
                 <Grid item xs={10}>
                   &nbsp; &nbsp;
-                  <Button color="success" onClick={setTextToLocalStorage}>
+                  <MyButton color="success" onClick={setTextToLocalStorage}>
                     Save text
-                  </Button>
-                  <Button color="error" onClick={deleteText}>
+                  </MyButton>
+                  <MyButton color="error" onClick={deleteText}>
                     Delete text
-                  </Button>
+                  </MyButton>
                 </Grid>
-              ) : (
-                ''
-              )}
+              ) : null}
             </Grid>
           </div>
         </MyBox>

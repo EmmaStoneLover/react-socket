@@ -7,9 +7,9 @@ export default function MyBox(propps) {
       sx={{
         m: 2,
         p: 2,
-        boxShadow: 5,
+        boxShadow: propps.bSh ? propps.bSh : 5,
         borderRadius: 3,
-        bgcolor: 'background.myBox',
+        bgcolor: propps.nobg ? null : 'background.myBox',
       }}
     >
       {propps.children}

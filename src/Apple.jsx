@@ -1,14 +1,17 @@
+// eslint-disable-next-line
 import { useState, useContext, useRef } from 'react'
-import { Container, Typography, Box } from '@mui/material'
+// eslint-disable-next-line
+import { Container, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-
+// eslint-disable-next-line
 import Text from './components/Text'
 import Input from './components/Input'
 import UserBox from './components/UserBox'
 import Settings from './components/Settings'
+import EmmaStone from './components/EmmaStone'
 import { ColorModeContext } from './config/Theme'
-
-import { MyBox } from './config/config'
+// eslint-disable-next-line
+import { MyButton } from './config/config'
 
 export default function Apple() {
   const firstText = () => {
@@ -27,37 +30,32 @@ export default function Apple() {
       : false
   })
 
+  const [settings, setSettings] = useState(false)
   const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
 
   const end = useRef()
+  const sxBox = {
+    bgcolor: 'background.default',
+    color: 'text.primary',
+    minHeight: '100vh',
+  }
 
   return (
-    <Box
-      sx={{
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        minHeight: '100vh',
-      }}
-    >
-      <Container className="App" maxWidth="sm">
-        <br />
-        <br />
-        <Typography variant="h4">Emma Stone</Typography>
-        <br />
-        <Settings theme={theme} colorMode={colorMode} />
-        <MyBox>
-          <UserBox
-            logged={logged}
-            setLogged={setLogged}
-            text={text}
-            setText={setText}
-          />
-        </MyBox>
+    <Box sx={sxBox}>
+      <Container className="App" maxWidth="sm" sx={{ pt: 5 }}>
+        <EmmaStone setSettings={setSettings} />
+        {settings ? <Settings theme={theme} colorMode={colorMode} /> : null}
+        <UserBox
+          logged={logged}
+          setLogged={setLogged}
+          text={text}
+          setText={setText}
+        />
+        {/* {logged ? <Text text={text} setText={setText} /> : null} */}
         <Text text={text} setText={setText} />
-        <MyBox>
-          <Input text={text} setText={setText} end={end} />
-        </MyBox>
+        {/* {logged ? <Input text={text} setText={setText} end={end} /> : null} */}
+        <Input text={text} setText={setText} end={end} />
       </Container>
       <br ref={end} />
     </Box>
