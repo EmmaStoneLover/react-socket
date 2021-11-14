@@ -6,12 +6,12 @@ import MyToggleButton from './MyToggleButton'
 import { yellow, blue, green, purple, orange } from '@mui/material/colors'
 
 const config = {
-  // Auth
+  // AUTH: 'http://localhost:7000',
   AUTH: 'https://emmastonenodejs.herokuapp.com',
-  // AUTH: 'https://emmastonenodejs.herokuapp.com',
-  // Socket
-  socket: 'https://node7socket.herokuapp.com',
   // socket: 'http://localhost:7000',
+  // socket: 'https://node7socket.herokuapp.com',
+  socket: 'https://emmastonenodejs.herokuapp.com',
+
   // Theme
   COLORS: [
     { name: 'yellow', color: yellow, Name: 'Yellow' },
