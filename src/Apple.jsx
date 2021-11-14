@@ -52,10 +52,10 @@ export default function Apple() {
           text={text}
           setText={setText}
         />
-        {/* {logged ? <Text text={text} setText={setText} /> : null} */}
-        <Text text={text} setText={setText} />
-        {/* {logged ? <Input text={text} setText={setText} end={end} /> : null} */}
-        <Input text={text} setText={setText} end={end} />
+        {logged ? <Text text={text} setText={setText} /> : null}
+        {logged ? <Input text={text} setText={setText} end={end} /> : null}
+        {/* <Text text={text} setText={setText} /> 
+        <Input text={text} setText={setText} end={end} /> */}
       </Container>
       <br ref={end} />
     </Box>

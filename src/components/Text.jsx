@@ -22,16 +22,29 @@ export default function Text({ text, setText }) {
     <>
       {text.length ? (
         <MyBox>
+          <div style={{ textAlign: 'end' }}>
+            {textSettings ? (
+              <>
+                <MyButton color="error" onClick={deleteText}>
+                  Delete text
+                </MyButton>
+                <MyButton onClick={setTextToLocalStorage}>Save text</MyButton>
+              </>
+            ) : null}
+            <MyButton onClick={() => setTextSettings((prev) => !prev)}>
+              •••
+            </MyButton>
+          </div>
           {text.map((payload, index) => {
             return (
               <Typography
                 component="p"
                 key={index}
                 className={`
-              textLeft
-              ${payload.user === 'Миша' ? 'textRight' : null} 
-              ${payload.user === 'Emma Stone' ? 'textCenter' : null}
-              `}
+                  textLeft
+                  ${payload.user === 'Миша' ? 'textRight' : null} 
+                  ${payload.user === 'Emma Stone' ? 'textCenter' : null}
+                `}
               >
                 {payload.user !== null &&
                 payload.user !== 'null' &&
@@ -44,33 +57,12 @@ export default function Text({ text, setText }) {
               </Typography>
             )
           })}
-          <br />
-          <div>
-            <Grid container style={{ textAlign: 'start' }}>
-              <Grid item xs={2}>
-                <MyButton onClick={() => setTextSettings((prev) => !prev)}>
-                  •••
-                </MyButton>
-              </Grid>
-              {textSettings ? (
-                <Grid item xs={10}>
-                  &nbsp; &nbsp;
-                  <MyButton color="success" onClick={setTextToLocalStorage}>
-                    Save text
-                  </MyButton>
-                  <MyButton color="error" onClick={deleteText}>
-                    Delete text
-                  </MyButton>
-                </Grid>
-              ) : null}
-            </Grid>
-          </div>
         </MyBox>
       ) : (
-        <div>
+        <>
           <Typography variant="p">Ничего тут нету</Typography>
           <br />
-        </div>
+        </>
       )}
     </>
   )
