@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import { useState, useContext, useRef } from 'react'
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom'
 // eslint-disable-next-line
 import { Container, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -12,6 +13,8 @@ import EmmaStone from './components/EmmaStone'
 import { ColorModeContext } from './config/Theme'
 // eslint-disable-next-line
 import { MyButton } from './config/config'
+
+import Alise from './components/alise/Alise'
 
 export default function Apple() {
   const firstText = () => {
@@ -52,10 +55,33 @@ export default function Apple() {
           text={text}
           setText={setText}
         />
-        {logged ? <Text text={text} setText={setText} /> : null}
-        {logged ? <Input text={text} setText={setText} end={end} /> : null}
-        {/* <Text text={text} setText={setText} /> 
-        <Input text={text} setText={setText} end={end} /> */}
+        <Router>
+          <Link to="react-socket/">Home</Link>{' '}
+          <Link to="react-socket/alise">Alise</Link>
+          <br />
+          <a href="https://emmastonelover.github.io/react-socket/">Home</a>{' '}
+          <a href="https://emmastonelover.github.io/react-socket/alise">
+            Alise
+          </a>
+          <br />
+          <Routes>
+            <Route
+              path="react-socket/*"
+              exact
+              element={
+                <>
+                  {/* {logged ? <Text text={text} setText={setText} /> : null}
+                  {logged ? (
+                    <Input text={text} setText={setText} end={end} />
+                  ) : null} */}
+                  <Text text={text} setText={setText} />
+                  <Input text={text} setText={setText} end={end} />
+                </>
+              }
+            />
+            <Route path="react-socket/alise" element={<Alise />} />
+          </Routes>
+        </Router>
       </Container>
       <br ref={end} />
     </Box>

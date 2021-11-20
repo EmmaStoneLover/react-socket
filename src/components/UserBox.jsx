@@ -130,7 +130,7 @@ export default function UserBox({ logged, setLogged }) {
           </form>
         </>
       ) : (
-        <>
+        <div style={{ textAlign: 'end' }}>
           <Typography variant="label">
             {input.login !== '' ? input.login : localStorage.username} &nbsp;
             &nbsp;
@@ -138,12 +138,12 @@ export default function UserBox({ logged, setLogged }) {
           <MyButton
             style={{ marginLeft: 10 }}
             color="secondary"
-            variant="outlined"
+            variant="text"
             onClick={handleLogOut}
           >
             Выйти
           </MyButton>
-        </>
+        </div>
       )}
     </MyBox>
   )
