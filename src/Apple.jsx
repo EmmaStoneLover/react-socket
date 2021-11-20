@@ -1,6 +1,5 @@
 // eslint-disable-next-line
 import { useState, useContext, useRef } from 'react'
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom'
 // eslint-disable-next-line
 import { Container, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -14,6 +13,13 @@ import { ColorModeContext } from './config/Theme'
 // eslint-disable-next-line
 import { MyButton } from './config/config'
 
+import {
+  // BrowserRouter as Router,
+  Link,
+  Route,
+  Routes,
+  HashRouter,
+} from 'react-router-dom'
 import Alise from './components/alise/Alise'
 
 export default function Apple() {
@@ -55,19 +61,17 @@ export default function Apple() {
           text={text}
           setText={setText}
         />
-        <Router>
-          <Link to="react-socket/">Home</Link>{' '}
-          <Link to="react-socket/alise">Alise</Link>
+        <HashRouter>
+          <Link to="/">Home</Link> <Link to="/alise">Alise</Link>
           <br />
           <a href="https://emmastonelover.github.io/react-socket/">Home</a>{' '}
-          <a href="https://emmastonelover.github.io/react-socket/alise">
+          <a href="https://emmastonelover.github.io/react-socket/#/alise">
             Alise
           </a>
           <br />
           <Routes>
             <Route
-              path="react-socket/*"
-              exact
+              path="*"
               element={
                 <>
                   {/* {logged ? <Text text={text} setText={setText} /> : null}
@@ -79,9 +83,9 @@ export default function Apple() {
                 </>
               }
             />
-            <Route path="react-socket/alise" element={<Alise />} />
+            <Route path="/alise" element={<Alise />} />
           </Routes>
-        </Router>
+        </HashRouter>
       </Container>
       <br ref={end} />
     </Box>
