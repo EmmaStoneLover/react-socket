@@ -12,14 +12,8 @@ import EmmaStone from './components/EmmaStone'
 import { ColorModeContext } from './config/Theme'
 // eslint-disable-next-line
 import { MyButton } from './config/config'
-
-import {
-  // BrowserRouter as Router,
-  Link,
-  Route,
-  Routes,
-  HashRouter,
-} from 'react-router-dom'
+// eslint-disable-next-line
+import { Route, Routes } from 'react-router-dom'
 import Alise from './components/alise/Alise'
 
 export default function Apple() {
@@ -61,31 +55,22 @@ export default function Apple() {
           text={text}
           setText={setText}
         />
-        <HashRouter>
-          <Link to="/">Home</Link> <Link to="/alise">Alise</Link>
-          <br />
-          <a href="https://emmastonelover.github.io/react-socket/">Home</a>{' '}
-          <a href="https://emmastonelover.github.io/react-socket/#/alise">
-            Alise
-          </a>
-          <br />
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <>
-                  {/* {logged ? <Text text={text} setText={setText} /> : null}
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <>
+                {/* {logged ? <Text text={text} setText={setText} /> : null}
                   {logged ? (
                     <Input text={text} setText={setText} end={end} />
                   ) : null} */}
-                  <Text text={text} setText={setText} />
-                  <Input text={text} setText={setText} end={end} />
-                </>
-              }
-            />
-            <Route path="/alise" element={<Alise />} />
-          </Routes>
-        </HashRouter>
+                <Text text={text} setText={setText} />
+                <Input text={text} setText={setText} end={end} />
+              </>
+            }
+          />
+          <Route path="/alise" element={<Alise end={end} />} />
+        </Routes>
       </Container>
       <br ref={end} />
     </Box>
