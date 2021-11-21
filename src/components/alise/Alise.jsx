@@ -4,11 +4,14 @@ import { MyBox, MyLoadingButton } from '../../config/config'
 
 import questions from './questions'
 
-export default function AliseInput({ end }) {
+export default function AliseInput({ end, logged }) {
   const [input, setInput] = useState('')
   const [dialogs, setDialogs] = useState([
     { text: 'Привет, чем я могу помочь?', user: 'Алиса' },
   ])
+  const [data, setData] = useState({
+    blame: false,
+  })
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -16,7 +19,7 @@ export default function AliseInput({ end }) {
       ...prev,
       {
         text: input,
-        user: localStorage.username,
+        user: logged ? logged.username : 'Ноунейм',
         right: true,
       },
     ])
@@ -24,6 +27,8 @@ export default function AliseInput({ end }) {
     questions.forEach((i) => {
       i.question.forEach((j) => {
         if (j === input.toLocaleLowerCase()) {
+          if (i.function) setData(i.function(data))
+          console.log(data)
           const rand = Math.floor(Math.random() * i.answer.length)
           return (answer = i.answer[rand])
         }
@@ -33,13 +38,12 @@ export default function AliseInput({ end }) {
       setDialogs((prev) => [
         ...prev,
         {
-          text: answer || 'Пошел нахуй',
+          text: answer || 'Не поняла',
           user: 'Алиса',
         },
       ])
     }, [200])
     setInput('')
-    end.current.scrollIntoView({ behavior: 'smooth' })
     setTimeout(() => {
       end.current.scrollIntoView({ behavior: 'smooth' })
     }, [250])
@@ -47,8 +51,14 @@ export default function AliseInput({ end }) {
 
   return (
     <>
-      <Typography variant="h5">Алиса</Typography>
-      <MyBox>
+      <MyBox bg={data.blame ? '#d60000' : null}>
+        <Typography
+          variant="h4"
+          color={data.blame ? '' : 'primary'}
+          sx={{ mb: '10px' }}
+        >
+          Алиса
+        </Typography>
         {dialogs.map((dialog, index) => {
           return (
             <div
@@ -59,9 +69,9 @@ export default function AliseInput({ end }) {
                 <Typography variant="span" color="primary">
                   {dialog.user}
                 </Typography>
-                {/* &nbsp; {dialog.text.replace(/\n/g, <br />)} */}
                 &nbsp;
-                <span
+                <Typography
+                  variant="span"
                   dangerouslySetInnerHTML={{
                     __html: dialog.text.replace(/\n/g, '<br />&nbsp; &nbsp;'),
                   }}
@@ -71,7 +81,7 @@ export default function AliseInput({ end }) {
           )
         })}
       </MyBox>
-      <MyBox>
+      <MyBox bg={data.blame ? '#d60000' : null}>
         <form onSubmit={handleSubmit}>
           <Grid container sx={{ p: 1 }}>
             <Grid item xs={10}>
@@ -85,7 +95,9 @@ export default function AliseInput({ end }) {
               />
             </Grid>
             <Grid item xs={2} sx={{ mt: '11px', textAlign: 'end' }}>
-              <MyLoadingButton color="secondary">Send</MyLoadingButton>
+              <MyLoadingButton color="secondary" type="submit">
+                Send
+              </MyLoadingButton>
             </Grid>
           </Grid>
         </form>

@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 
 import config, { MyBox, MyLoadingButton } from '../config/config'
 
-const Input = ({ text, setText, end }) => {
+const Input = ({ text, setText, end, logged }) => {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -26,11 +26,11 @@ const Input = ({ text, setText, end }) => {
       setLoading(true)
       socketRef.current.emit('message', {
         message: message,
-        user: localStorage.username,
+        user: logged ? logged.username : 'Ноунейм',
       })
       setMessage('')
     },
-    [message]
+    [message, logged]
   )
 
   return (

@@ -29,7 +29,7 @@ export default function Apple() {
     return localStorage.username &&
       localStorage.username !== null &&
       localStorage.username !== 'null'
-      ? true
+      ? { username: localStorage.username }
       : false
   })
 
@@ -65,11 +65,16 @@ export default function Apple() {
                     <Input text={text} setText={setText} end={end} />
                   ) : null} */}
                 <Text text={text} setText={setText} />
-                <Input text={text} setText={setText} end={end} />
+                <Input
+                  text={text}
+                  setText={setText}
+                  end={end}
+                  logged={logged}
+                />
               </>
             }
           />
-          <Route path="/alise" element={<Alise end={end} />} />
+          <Route path="/alise" element={<Alise end={end} logged={logged} />} />
         </Routes>
       </Container>
       <br ref={end} />

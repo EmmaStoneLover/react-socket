@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 
 export default function EmmaStone({ setSettings }) {
   return (
-    <MyBox bSh={'0px'} nobg={true}>
+    <MyBox bSh={'0px'} bg={'#fff0'}>
       <Typography component="span" variant="h4">
         Emma Stone &nbsp;
         <IconButton
@@ -20,7 +20,7 @@ export default function EmmaStone({ setSettings }) {
           <SettingsIcon />
         </IconButton>
       </Typography>
-      &nbsp;
+      &nbsp;&nbsp;&nbsp;
       <span>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <Typography component="span" color="primary">

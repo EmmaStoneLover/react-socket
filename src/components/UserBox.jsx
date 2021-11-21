@@ -36,7 +36,7 @@ export default function UserBox({ logged, setLogged }) {
       localStorage.username = res.username
       localStorage.token = res.token
       console.log('Все збс', localStorage)
-      setLogged(true)
+      setLogged({ username: res.username })
     } else fetchError(res)
   }
   // при ошибке
