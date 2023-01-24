@@ -79,6 +79,9 @@ export default function Text({ text, setText }) {
       ) : (
         <>
           <Typography variant="p">Ничего тут нету</Typography>
+          <Typography variant="p">И ничего не будет, </Typography>
+          <Typography variant="p">так как Herroku и MongoDB перестали работать в России</Typography>
+          <Typography variant="p">Вместо этого будем довольствоваться крутящимся спинером</Typography>
           <br />
         </>
       )}
