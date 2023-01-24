@@ -78,10 +78,10 @@ export default function Text({ text, setText }) {
         </MyBox>
       ) : (
         <>
-          <Typography variant="p">Ничего тут нету</Typography>
-          <Typography variant="p">И ничего не будет, </Typography>
-          <Typography variant="p">так как Herroku и MongoDB перестали работать в России</Typography>
-          <Typography variant="p">Вместо этого будем довольствоваться крутящимся спинером</Typography>
+          <Typography variant="p">Ничего тут нету<br />
+          И ничего не будет,<br />
+          так как Herroku и MongoDB<br/> перестали работать в России<br />
+          Вместо этого будем довольствоваться крутящимся спинером</Typography>
           <br />
         </>
       )}
